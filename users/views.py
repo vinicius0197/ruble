@@ -49,7 +49,7 @@ def signup(request):
         form = SignupForm(request.POST)
 
         if form.is_valid():
-            email=  form.cleaned_data['email']
+            email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             user = User.objects.create_user(email, password)
             user.save()
