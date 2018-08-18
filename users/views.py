@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from .forms import LoginForm, SignupForm
-from models import DashboardId
+from .models import DashboardId
 
 def index(request):
     """ Renders main landing page """
@@ -14,7 +14,10 @@ def index(request):
     context = {
         "user": request.user
     }
-    return render(request, "users/user.html", context)
+    current_user = User.objects.get(username=request.user)
+    dash_id = DashboardId.objects.get(user=current_user).dashboard_id
+
+    return HttpResponseRedirect(reverse("dashboard", kwargs={'dash_id': dash_id}))
 
 def login_view(request):
     """ Renders login view """
@@ -56,6 +59,8 @@ def signup(request):
             password = form.cleaned_data['password']
             user = User.objects.create_user(username, email, password)
             dashboard_id = DashboardId(user=user)
+
+            dashboard_id.save()
             user.save()
 
             if user is not None:
