@@ -5,4 +5,17 @@
 {% block content %}
 <h1>Your budget</h1>
 
+<div class="categorie_group">
+  <form class="create_category_group">
+    <input type="text" id="category_group" placeholder="Category Group Name">
+    <button type="button" id="submit_category_group">Create Category Group</button>
+  </form>
+
+  <form class="create_category">
+    <input type="text" id="category" placeholder="Category name">
+    <input type="text" id="super" placeholder="Parent category group">
+    <button type="button" id="submit_category">Create Category</button>
+  </form>
+</div>
+
 {% endblock %}
